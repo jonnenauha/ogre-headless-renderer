@@ -17,21 +17,22 @@ How to use
 ----------
 
 You can access the `Ogre::HardwareBufferManager` singleton and load Meshes via
-`Ogre::MeshManager` normally to Ogre. This default hardware buffer manager is
+`Ogre::MeshManager` normally to Ogre. This instance of `Ogre::DefaultHardwareBufferManager` is
 created and destroyed by this plugins. Loading meshes can be useful for example
 on a headless server for physics.
 
 You can access the `Ogre::TextureManager` singleton but cannot use it for anything sensible.
 This singleton of `Ogre::HeadlessTextureManager` is created and destroyed by this plugin.
 
-The following operations are not allowed when using this plugins. Some of these will throw
+The following operations are not supported when using this renderer. Some of these will throw
 an `Ogre::Exception` with a message explaining the situation.
 
-* Don't invoke `Ogre::Root::initialize()` or create a rendering window. Throws exception.
-* Don't invoke `Ogre::Root::setRenderSystem()` with this plugins ptr.
-* Don't load textures to Ogre, this will end up in `Ogre::HeadlessTextureManager::createImpl()`. Throws exception.
+* Don't invoke `Ogre::Root::initialize()`, throws and exception.
+* Don't invoke `Ogre::Root::createRenderWindow()`, throws and exception.
+* Don't invoke `Ogre::Root::setRenderSystem()` with this plugins ptr. In theory this can be done, but is not practical.
+* Don't load textures to Ogre, this will end up in `Ogre::HeadlessTextureManager::createImpl()` and throw an exception.
 * Don't try to render with `Ogre::Root::renderOneFrame`, `Ogre::Root::startRendering` etc. This will crash your application.
-* Don't try to use `Ogre::GpuProgramManager`, it will be null. However `Ogre::HighLevelGpuProgramManager` is initialized in `Ogre::Root` constructor.
+* Don't try to access `Ogre::GpuProgramManager`, it will be null. However `Ogre::HighLevelGpuProgramManager` is initialized in `Ogre::Root` constructor.
 
 Building
 --------
