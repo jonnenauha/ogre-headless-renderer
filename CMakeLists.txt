@@ -14,6 +14,10 @@ if (NOT OGRE_STATIC)
   set_target_properties (${PLUGIN_NAME} PROPERTIES COMPILE_DEFINITIONS "${PLUGIN_NAME}_EXPORTS")
 endif ()
 
+if (APPLE)
+  ogre_config_framework(${PLUGIN_NAME})
+endif ()
+
 ogre_config_plugin (${PLUGIN_NAME})
 
 install (FILES ${HEADER_FILES} DESTINATION include/OGRE/RenderSystems/${NAME})
